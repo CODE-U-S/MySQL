@@ -28,7 +28,7 @@
  |해당 규칙|내용|
 |------|----------|
 |Commit|[PGS] 해당 문제 제목 / 난이도 <br> 문제 사이트 주소|
-|PR|[주차] 이름 / 본인이 한 스터디 내용 (요약해서 한줄 적기)|PR 내부 규칙은 Template 참고|
+|PR| 이름 / 본인이 한 스터디 내용 (요약해서 한줄 적기)|PR 내부 규칙은 Template 참고|
 |Issue|[Issue 키워드 (error, merge, fix...)] 내용 |Issue 내부 규칙은 Template 참고|
   
   - commit 터미널 예시
