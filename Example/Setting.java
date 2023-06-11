@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 public class Setting {
     public Setting() throws Exception {
         // localhost : 127.0.0.1 -> 연결
-        var con = DriverManager.getConnection("jdbc:mysql://127.0.0.1/?serverTimezone=UTC", "root", "1234");
+        var con = DriverManager.getConnection("jdbc:mysql://127.0.0.1/?serverTimezone=UTC&allowLoadLocalInfile=true", "root", "1234");
         var stmt = con.createStatement();
 
         stmt.execute("SET GLOBAL local_infile=1");
@@ -36,6 +36,17 @@ public class Setting {
                 + "PRIMARY KEY (`t_no`));");
 
         System.out.println("test Table 생성");
+
+        // user 생성
+        stmt.execute("DROP USER IF EXISTS 'user'@'127.0.0.1'");
+        stmt.execute("CREATE USER 'user'@'127.0.0.1' IDENTIFIED BY '1234'");
+        stmt.execute("GRANT SELECT, INSERT, UPDATE, DELETE ON `jdbc`.* TO 'user'@'127.0.0.1'");
+        stmt.execute("USE `jdbc`");
+
+        // txt파일 데이터로 넣기
+        stmt.execut("LOAD DATA LOCAL INFILE 'datafiles/test.txt'
+                + " INTO TABLE test"
+                + " IGNORE 1 LINES");
     }
 
     public static void main(String[] args) {

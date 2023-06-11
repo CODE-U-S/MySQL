@@ -1,4 +1,4 @@
-package MySQL.예제코드;
+package MySQL.Example;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -12,7 +12,7 @@ public class CommonFrame {
 
     static {
         try {
-            con = DriverManager.getConnection("jdbc:mysql://127.0.0.1/?serverTimezone=UTC", "root", "1234");
+            con = DriverManager.getConnection("jdbc:mysql://127.0.0.1/?serverTimezone=UTC", "user", "1234");
             stmt = con.createStatement();
         } catch (SQLException e) {
             e.printStackTrace();
