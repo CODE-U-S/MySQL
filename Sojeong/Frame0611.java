@@ -3,6 +3,7 @@ package Sojeong;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.sql.SQLException;
 
 public class Frame0611 extends CommonFrame0611 {
 	
@@ -16,7 +17,23 @@ public class Frame0611 extends CommonFrame0611 {
 		int stu_num = Integer.parseInt(br.readLine());
 		
 		updateSQL("INSERT INTO `test0611`.`student` (name, grade, stu_num) VALUES (?, ?, ?)", name, grade, stu_num);
+		
+		br.close();
+		
+		var rs = getResult("SELECT * FROM `test0611`.`student`");
+		
+		try {
+			while(rs.next()) {
+				System.out.println("이름: " + rs.getString(2));
+				System.out.println("학년: " + rs.getInt(3));
+				System.out.println("학번: " + rs.getInt(4));
+				System.out.println();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
+	
 	
 
 	public static void main(String[] args) throws IOException {

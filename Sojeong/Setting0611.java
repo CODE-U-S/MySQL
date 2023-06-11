@@ -19,14 +19,14 @@ public class Setting0611 {
 				+ "  `no` INT NOT NULL AUTO_INCREMENT,\r\n"
 				+ "  `name` VARCHAR(20) NULL,\r\n"
 				+ "  `grade` INT NULL,\r\n"
-				+ "  `class_num` INT NULL,\r\n"
+				+ "  `stu_num` INT NULL,\r\n"
 				+ "  PRIMARY KEY (`no`));\r\n"
 				+ "");
 		
 		// user
 		stmt.execute("DROP USER IF EXISTS 'user'@'127.0.0.1'");
 		stmt.execute("CREATE USER 'user'@'127.0.0.1' IDENTIFIED BY '1234'");
-		stmt.execute("GRANT SELECT, INSERT, UPDATE, DELETE ON `test0611` . `student` TO 'user'@'127.0.0.1'");
+		stmt.execute("GRANT SELECT, INSERT, UPDATE, DELETE ON `test0611`.`student` TO 'user'@'127.0.0.1'");
 		
 		System.out.println("user 생성 성공");
 		
@@ -34,6 +34,7 @@ public class Setting0611 {
 		stmt.execute("LOAD DATA LOCAL INFILE 'datafile/student.txt'"
 				+ " INTO TABLE test0611.student"
 				+ " IGNORE 1 LINES");
+		// IGNORE 1 LINES: 첫번째 행 (속성 이름)을 무시한다는 뜻
 	}
 	
 	public static void main(String[] args) {

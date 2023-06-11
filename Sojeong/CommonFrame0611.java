@@ -41,7 +41,7 @@ public class CommonFrame0611 {
 	}
 	
 	// U, D
-	public static ResultSet update(String sql, Object... p) { // void형으로 바꾸고 return 없애도 가능
+	public static ResultSet updateSQL(String sql, Object... p) { // void형으로 바꾸고 return 없애도 가능
 		try {
 			var pstmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			
