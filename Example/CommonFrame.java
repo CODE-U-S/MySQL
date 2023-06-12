@@ -1,60 +1,52 @@
-package MySQL.Example;
+package setting;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Iterator;
 
 public class CommonFrame {
-    public static Connection con;
-    public static Statement stmt;
-
-    static {
-        try {
-            con = DriverManager.getConnection("jdbc:mysql://127.0.0.1/?serverTimezone=UTC", "user", "1234");
-            stmt = con.createStatement();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    // 읽기 : R 작업
-    public static ResultSet getResulSet(String sql, Object... paramter) {
-        try {
-            var pstmt = con.prepareStatement(sql);
-
-            for (int i = 0; i < paramter.length; i++) {
-                pstmt.setObject(i + 1, paramter[i]);
-            }
-
-            // SELECT 전용
-            return pstmt.executeQuery();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return null;
-    }
-
-    // 추가, 업데이트, 삭제 : CUD 작업
-    public static ResultSet updateSQL(String sql, Object... paramter) {
-        try {
-            var pstmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-
-            for (int i = 0; i < paramter.length; i++) {
-                pstmt.setObject(i + 1, paramter[i]);
-            }
-
-            // INSER, UPDATE, DELETE 데이터 변경
-            pstmt.executeUpdate();
-
-            return pstmt.getGeneratedKeys();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
+	static Connection con = null;
+	static Statement stmt = null;
+	static {
+		try {
+			con = DriverManager.getConnection("jdbc:mysql://127.0.0.1/?serverTimezone=UTC", "user1", "1234");
+			stmt = con.createStatement();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static ResultSet getResult(String sql, Object ...p) {
+		try {
+			var rs = con.prepareStatement(sql);
+			for (int i = 0; i < p.length; i++) {
+				rs.setObject(i + 1, p[i]);
+			}
+			
+			return rs.executeQuery();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	public static ResultSet updateSQL(String sql, Object ...p) {
+		try {
+			var rs = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+			for (int i = 0; i < p.length; i++) {
+				rs.setObject(i + 1, p[i]);
+			}
+			
+			rs.executeUpdate();
+			
+			return rs.getGeneratedKeys();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 }
